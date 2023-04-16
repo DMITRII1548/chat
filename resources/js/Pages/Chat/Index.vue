@@ -4,189 +4,69 @@
         <header>
           <input type="text" placeholder="search">
         </header>
-        <ul>
-          <li>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
-            <div>
-              <h2>Prénom Nom</h2>
-              <h3>
-                <span class="status orange"></span>
-                offline
-              </h3>
-            </div>
-          </li>
-          <li>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_02.jpg" alt="">
-            <div>
-              <h2>Prénom Nom</h2>
-              <h3>
-                <span class="status green"></span>
-                online
-              </h3>
-            </div>
-          </li>
-          <li>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_03.jpg" alt="">
-            <div>
-              <h2>Prénom Nom</h2>
-              <h3>
-                <span class="status orange"></span>
-                offline
-              </h3>
-            </div>
-          </li>
-          <li>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_04.jpg" alt="">
-            <div>
-              <h2>Prénom Nom</h2>
-              <h3>
-                <span class="status green"></span>
-                online
-              </h3>
-            </div>
-          </li>
-          <li>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_05.jpg" alt="">
-            <div>
-              <h2>Prénom Nom</h2>
-              <h3>
-                <span class="status orange"></span>
-                offline
-              </h3>
-            </div>
-          </li>
-          <li>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_06.jpg" alt="">
-            <div>
-              <h2>Prénom Nom</h2>
-              <h3>
-                <span class="status green"></span>
-                online
-              </h3>
-            </div>
-          </li>
-          <li>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_07.jpg" alt="">
-            <div>
-              <h2>Prénom Nom</h2>
-              <h3>
-                <span class="status green"></span>
-                online
-              </h3>
-            </div>
-          </li>
-          <li>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_08.jpg" alt="">
-            <div>
-              <h2>Prénom Nom</h2>
-              <h3>
-                <span class="status green"></span>
-                online
-              </h3>
-            </div>
-          </li>
-          <li>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_09.jpg" alt="">
-            <div>
-              <h2>Prénom Nom</h2>
-              <h3>
-                <span class="status green"></span>
-                online
-              </h3>
-            </div>
-          </li>
-          <li>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_10.jpg" alt="">
-            <div>
-              <h2>Prénom Nom</h2>
-              <h3>
-                <span class="status orange"></span>
-                offline
-              </h3>
-            </div>
-          </li>
+        <ul v-if="chats">
+          <template v-for="chat in chats">
+            <li @click.prevent="getMessages(chat)">
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
+                <div>
+                <h2>{{ chat.title }}</h2>
+                <h3>
+                    <span class="status orange"></span>
+                    offline
+                </h3>
+                </div>
+            </li>
+          </template>
         </ul>
       </aside>
       <main>
         <header>
-          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
-          <div>
-            <h2>Chat with Vincent Porter</h2>
-            <h3>already 1902 messages</h3>
-          </div>
-          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_star.png" alt="">
+          <template v-if="currentChat">
+            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
+            <div>
+                <h2>{{ currentChat.title }}</h2>
+                <h3>already {{ Object.keys(messages).length }} messages</h3>
+            </div>
+            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_star.png" alt="">
+          </template>
         </header>
         <ul id="chat">
-          <li class="you">
-            <div class="entete">
-              <span class="status green"></span>
-              <h2>Vincent</h2>
-              <h3>10:12AM, Today</h3>
-            </div>
-            <div class="triangle"></div>
-            <div class="message">
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-            </div>
-          </li>
-          <li class="me">
-            <div class="entete">
-              <h3>10:12AM, Today</h3>
-              <h2>Vincent</h2>
-              <span class="status blue"></span>
-            </div>
-            <div class="triangle"></div>
-            <div class="message">
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-            </div>
-          </li>
-          <li class="me">
-            <div class="entete">
-              <h3>10:12AM, Today</h3>
-              <h2>Vincent</h2>
-              <span class="status blue"></span>
-            </div>
-            <div class="triangle"></div>
-            <div class="message">
-              OK
-            </div>
-          </li>
-          <li class="you">
-            <div class="entete">
-              <span class="status green"></span>
-              <h2>Vincent</h2>
-              <h3>10:12AM, Today</h3>
-            </div>
-            <div class="triangle"></div>
-            <div class="message">
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-            </div>
-          </li>
-          <li class="me">
-            <div class="entete">
-              <h3>10:12AM, Today</h3>
-              <h2>Vincent</h2>
-              <span class="status blue"></span>
-            </div>
-            <div class="triangle"></div>
-            <div class="message">
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-            </div>
-          </li>
-          <li class="me">
-            <div class="entete">
-              <h3>10:12AM, Today</h3>
-              <h2>Vincent</h2>
-              <span class="status blue"></span>
-            </div>
-            <div class="triangle"></div>
-            <div class="message">
-              OK
-            </div>
-          </li>
+          <template v-if="messages">
+            <template v-for="message in messages">
+                <template v-if="message.user.id == user.id">
+                    <li class="me">
+                        <div class="entete">
+                        <h3>{{ message.date }}</h3>
+                        <h2>{{ message.user.name }}</h2>
+                        <span class="status blue"></span>
+                        </div>
+                        <div class="triangle"></div>
+                        <div class="message">
+                            {{ message.body }}
+                        </div>
+                    </li>
+                </template>
+                <template v-if="message.user.id !== user.id">
+                      <li class="you">
+                            <div class="entete">
+                            <h3>{{ message.date }}</h3>
+                            <h2>{{ message.user.name }}</h2>
+                            <span class="status green"></span>
+                            </div>
+                            <div class="triangle"></div>
+                            <div class="message">
+                                {{ message.body }}
+                            </div>
+                        </li>
+                </template>
+
+            </template>
+
+          </template>
         </ul>
         <footer>
-          <textarea placeholder="Type your message"></textarea>
-          <a href="#">Send</a>
+          <textarea v-model="body" placeholder="Type your message"></textarea>
+          <a @click.prevent="sendMessage" href="#">Send</a>
         </footer>
       </main>
     </div>
@@ -194,10 +74,42 @@
 
 <script>
 export default {
-    name: 'Index'
+    name: 'Index',
+
+    props: [
+        'chats',
+        'user',
+    ],
+
+    data() {
+        return {
+            body: '',
+            messages: null,
+            currentChat: null,
+        }
+    },
+
+    methods: {
+        sendMessage() {
+            axios.post(`/chats/${this.currentChat.id}/messages`, { body: this.body })
+                .then(response => {
+                    this.messages.push(response.data)
+
+                    this.body = ''
+                })
+        },
+
+        getMessages(chat) {
+            axios.get(`/chats/${chat.id}/messages`)
+                .then(response => {
+                    this.messages = response.data
+                    this.currentChat = chat
+                })
+        },
+    }
 }
 </script>
 
 <style>
-@import url('@/../css/chat.css')
+@import url('@/../css/chat.css');
 </style>
