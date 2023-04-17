@@ -17,15 +17,23 @@ class MessageController extends Controller
 {
     public function index(Chat $chat): array
     {
-        $messages = $chat->messages()->get();
+        if ($chat->users()->find(Auth::user()->id)) {
+            $messages = $chat->messages()->get();
 
-        return MessageResource::collection($messages)->resolve();
+            return MessageResource::collection($messages)->resolve();
+        }
+
+        abort(419);
     }
 
     public function store(Chat $chat, StoreRequest $request): array
     {
         $data = $request->validated();
         $user = Auth::user();
+
+        if(!$chat->users()->find($user->id)){
+            abort(419);
+        }
 
         $message = Message::create([
             'body' => $data['body'],
