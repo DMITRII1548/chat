@@ -103,7 +103,20 @@ export default {
             axios.get(`/chats/${chat.id}/messages`)
                 .then(response => {
                     this.messages = response.data
-                    this.currentChat = chat
+                    this.switchCurrentChat(chat)
+                })
+        },
+
+        switchCurrentChat(newChat) {
+            if (this.currentChat) {
+                Echo.leave(`send.message.${this.currentChat.id}`)
+            }
+
+            this.currentChat = newChat
+
+            Echo.private(`send.message.${this.currentChat.id}`)
+                .listen('.send.message', (response) => {
+                    this.messages.push(response.message)
                 })
         },
     }
