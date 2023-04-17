@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageSended;
 use App\Http\Requests\Message\StoreRequest;
 use App\Http\Resources\Chat\ChatResource;
 use App\Http\Resources\Message\MessageResource;
@@ -41,6 +42,10 @@ class MessageController extends Controller
             'chat_id' => $chat->id,
         ]);
 
-        return MessageResource::make($message)->resolve();
+        $message = MessageResource::make($message)->resolve();
+
+        broadcast(new MessageSended($chat, $message))->toOthers();
+
+        return $message;
     }
 }
