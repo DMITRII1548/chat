@@ -19,9 +19,9 @@
           </template>
         </ul>
       </aside>
-      <main>
+      <main v-if="currentChat">
         <header>
-          <template v-if="currentChat">
+          <template>
             <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
             <div>
                 <h2>{{ currentChat.title }}</h2>
