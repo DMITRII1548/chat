@@ -20,4 +20,9 @@ class ChatController extends Controller
 
         return inertia('Chat/Index', compact('chats', 'user'));
     }
+
+    public function create(): Response
+    {
+        return inertia('Chat/Create');
+    }
 }

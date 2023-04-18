@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('chats')->group(function () {
         // Chat CRUD
         Route::get('/', [ChatController::class, 'index'])->name('chats.index');
+        Route::get('/create', [ChatController::class, 'create'])->name('chats.create');
 
         // Message CRUD
         Route::get('/{chat}/messages', [MessageController::class, 'index']);
