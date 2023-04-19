@@ -2,7 +2,7 @@
     <div id="container">
       <aside>
         <header>
-          <input type="text" placeholder="search">
+          <a :href="route('chats.create')" class="text-lg text-sky-100 hover:opacity-50">Create chat</a>
         </header>
         <ul v-if="chats">
           <template v-for="chat in chats">
