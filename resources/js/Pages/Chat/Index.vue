@@ -20,16 +20,19 @@
         </ul>
       </aside>
       <main v-if="currentChat">
-        <header>
-          <template>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
-            <div>
-                <h2>{{ currentChat.title }}</h2>
-                <h3>already {{ Object.keys(messages).length }} messages</h3>
-            </div>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_star.png" alt="">
-          </template>
-        </header>
+        <Link :href="route('chats.settings', 1)">
+            <header class="hover:bg-gray-300">
+                <template>
+                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
+                    <div>
+                        <h2>{{ currentChat.title }}</h2>
+                        <h3>already {{ Object.keys(messages).length }} messages</h3>
+                    </div>
+                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_star.png" alt="">
+                </template>
+            </header>
+        </Link>
+
         <ul id="chat">
           <template v-if="messages">
             <template v-for="message in messages">
@@ -73,6 +76,7 @@
 </template>
 
 <script>
+import { Link } from '@inertiajs/vue3'
 export default {
     name: 'Index',
 
@@ -119,7 +123,11 @@ export default {
                     this.messages.push(response.message)
                 })
         },
-    }
+    },
+
+    components: {
+        Link,
+    },
 }
 </script>
 

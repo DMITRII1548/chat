@@ -38,12 +38,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::prefix('chats')->group(function () {
-        // Chat CRUD
+        // Chat Routes
         Route::get('/', [ChatController::class, 'index'])->name('chats.index');
         Route::get('/create', [ChatController::class, 'create'])->name('chats.create');
         Route::post('/', [ChatController::class, 'store'])->name('chats.store');
+        Route::get('/{chat}/settings', [ChatController::class, 'settings'])->name('chats.settings');
+        Route::get('/{chat}/addUser', [ChatController::class, 'addUser'])->name('chats.addUser');
 
-        // Message CRUD
+        // Message Routes
         Route::get('/{chat}/messages', [MessageController::class, 'index']);
         Route::post('/{chat}/messages', [MessageController::class, 'store'])->name('messages.post');
     });

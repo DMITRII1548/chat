@@ -37,4 +37,14 @@ class ChatController extends Controller
 
         return redirect()->route('chats.index');
     }
+
+    public function settings(): Response
+    {
+        return inertia('Chat/Settings');
+    }
+
+    public function addUser(Chat $chat): Response
+    {
+        return inertia('Chat/AddUser');
+    }
 }
