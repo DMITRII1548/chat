@@ -4,7 +4,7 @@
             <div class="ml-6 mt-5">
                 <Link
                     :href="route('chats.index')"
-                    class="text-lg font-medium hover:opacity-50">Back</Link>
+                    class="font-medium text-sky-500 hover:opacity-50">Back</Link>
             </div>
 
             <div class="flex flex-col items-center mt-8 gap-5">
@@ -24,9 +24,12 @@
 
 <script>
 import { Link } from '@inertiajs/vue3'
+import ChatLayout from '@/Layouts/ChatLayout.vue'
 
 export default {
     name: 'Create',
+
+    layout: ChatLayout,
 
     props: [
         'errors',
@@ -50,14 +53,7 @@ export default {
 }
 </script>
 
-<style>
-*{
-    box-sizing:border-box;
-}
-body{
-    background-color:#abd9e9;
-    font-family:Arial;
-}
+<style scoped>
 #container{
     width:750px;
     min-height:calc(100vh - 10px);

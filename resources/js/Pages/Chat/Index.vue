@@ -20,7 +20,7 @@
         </ul>
       </aside>
       <main v-if="currentChat">
-        <Link :href="route('chats.settings', 1)">
+        <Link :href="route('chats.settings', this.currentChat.id)">
             <header class="hover:bg-gray-300">
                 <template>
                     <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
@@ -77,8 +77,12 @@
 
 <script>
 import { Link } from '@inertiajs/vue3'
+import ChatLayout from '@/Layouts/ChatLayout.vue'
+
 export default {
     name: 'Index',
+
+    layout: ChatLayout,
 
     props: [
         'chats',
@@ -131,6 +135,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import url('@/../css/chat.css');
 </style>

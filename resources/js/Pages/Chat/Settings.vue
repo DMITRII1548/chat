@@ -9,48 +9,19 @@
                     :href="route('chats.index')"
                     class="font-medium text-sky-500 hover:opacity-50">Back</Link>
                 <Link
-                    :href="route('chats.addUser', 1)"
+                    :href="route('chats.addUser', chat.id)"
                     class="font-medium text-sky-500 hover:opacity-50">Add user</Link>
             </div>
             <div class="w-full flex flex-col items-center">
                 <h3 class="text-lg font-medium">Users in the chat</h3>
             </div>
             <div class="flex flex-col items-center w-full gap-2 mt-4">
-                <div class="text-base font-normal border-t border-gray-400 w-1/3 pt-2 flex justify-between">
-                    <div class="text-green-700">User1</div>
-                    <Link
+                <div v-for="user in users" class="text-base font-normal border-t border-gray-400 w-1/3 pt-2 flex justify-between">
+                    <div class="text-green-700">{{ user.name }}</div>
+                    <a
+                        @click.prevent="destroyUser(user.id)"
                         href="#"
-                        class="text-sm text-red-600 hover:opacity-80">Delete</Link>
-                </div>
-                <div class="text-base font-normal border-t border-gray-400 w-1/3 pt-2 flex justify-between">
-                    <div class="text-green-700">User1</div>
-                    <Link
-                        href="#"
-                        class="text-sm text-red-600 hover:opacity-80">Delete</Link>
-                </div>
-                <div class="text-base font-normal border-t border-gray-400 w-1/3 pt-2 flex justify-between">
-                    <div class="text-green-700">User1</div>
-                    <Link
-                        href="#"
-                        class="text-sm text-red-600 hover:opacity-80">Delete</Link>
-                </div>
-                <div class="text-base font-normal border-t border-gray-400 w-1/3 pt-2 flex justify-between">
-                    <div class="text-green-700">User1</div>
-                    <Link
-                        href="#"
-                        class="text-sm text-red-600 hover:opacity-80">Delete</Link>
-                </div>
-                <div class="text-base font-normal border-t border-gray-400 w-1/3 pt-2 flex justify-between">
-                    <div class="text-green-700">User1</div>
-                    <Link
-                        href="#"
-                        class="text-sm text-red-600 hover:opacity-80">Delete</Link>
-                </div>
-                <div class="text-base font-normal border-t border-gray-400 w-1/3 pt-2 flex justify-between">
-                    <div class="text-green-700">User1</div>
-                    <Link
-                        href="#"
-                        class="text-sm text-red-600 hover:opacity-80">Delete</Link>
+                        class="text-sm text-red-600 hover:opacity-80">Delete</a>
                 </div>
             </div>
         </main>
@@ -59,24 +30,31 @@
 
 <script>
 import { Link } from '@inertiajs/vue3'
+import ChatLayout from '@/Layouts/ChatLayout.vue'
 
 export default {
     name: 'Settings',
 
+    layout: ChatLayout,
+
+    props: [
+        'chat',
+        'users',
+    ],
+
     components: {
         Link,
     },
+
+    methods: {
+        destroyUser(userId) {
+            this.$inertia.delete(`/chats/${this.chat.id}/destroyUser/${userId}`)
+        }
+    }
 }
 </script>
 
-<style>
-*{
-    box-sizing:border-box;
-}
-body{
-    background-color:#abd9e9;
-    font-family:Arial;
-}
+<style scoped>
 #container{
     width:750px;
     min-height:calc(100vh - 10px);

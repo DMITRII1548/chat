@@ -44,6 +44,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/', [ChatController::class, 'store'])->name('chats.store');
         Route::get('/{chat}/settings', [ChatController::class, 'settings'])->name('chats.settings');
         Route::get('/{chat}/addUser', [ChatController::class, 'addUser'])->name('chats.addUser');
+        Route::patch('/{chat}/includeUser', [ChatController::class, 'includeUser'])->name('chats.includeUser');
+        Route::delete('/{chat}/destroyUser/{user}', [ChatController::class, 'destroyUser'])->name('chats.destroyUser');
 
         // Message Routes
         Route::get('/{chat}/messages', [MessageController::class, 'index']);
