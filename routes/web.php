@@ -19,27 +19,18 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
-
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('verified')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    // Chat Routes
+    Route::get('/', [ChatController::class, 'index'])->name('chats.index');
     Route::prefix('chats')->group(function () {
-        // Chat Routes
-        Route::get('/', [ChatController::class, 'index'])->name('chats.index');
         Route::get('/create', [ChatController::class, 'create'])->name('chats.create');
         Route::post('/', [ChatController::class, 'store'])->name('chats.store');
         Route::get('/{chat}/settings', [ChatController::class, 'settings'])->name('chats.settings');
@@ -48,7 +39,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{chat}/destroyUser/{user}', [ChatController::class, 'destroyUser'])->name('chats.destroyUser');
 
         // Message Routes
-        Route::get('/{chat}/messages', [MessageController::class, 'index']);
+        Route::get('/{chat}/messages', [MessageController::class, 'index'])->name('messages.index');
         Route::post('/{chat}/messages', [MessageController::class, 'store'])->name('messages.post');
     });
 

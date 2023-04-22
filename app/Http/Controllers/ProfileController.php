@@ -53,11 +53,12 @@ class ProfileController extends Controller
 
         Auth::logout();
 
+        $user->chats()->detach();
         $user->delete();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/');
+        return Redirect::to('/login');
     }
 }
