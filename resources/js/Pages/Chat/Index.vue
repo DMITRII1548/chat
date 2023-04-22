@@ -1,8 +1,9 @@
 <template>
     <div id="container">
       <aside>
-        <header>
+        <header class="flex justify-between mx-1">
           <a :href="route('chats.create')" class="text-lg text-sky-100 hover:opacity-50">Create chat</a>
+          <a :href="route('dashboard')" class="text-lg text-sky-100 hover:opacity-50">Dashboard</a>
         </header>
         <ul v-if="chats">
           <template v-for="chat in chats">
