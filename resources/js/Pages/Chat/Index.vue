@@ -21,7 +21,7 @@
         </ul>
       </aside>
       <main v-if="currentChat">
-        <Link :href="route('chats.settings', this.currentChat.id)">
+        <Link :href="route('chat.users.index', currentChat.id)">
             <header class="hover:bg-gray-300">
                 <template>
                     <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">

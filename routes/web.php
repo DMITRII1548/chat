@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ChatUserController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -33,10 +34,12 @@ Route::middleware('verified')->group(function () {
     Route::prefix('chats')->group(function () {
         Route::get('/create', [ChatController::class, 'create'])->name('chats.create');
         Route::post('/', [ChatController::class, 'store'])->name('chats.store');
-        Route::get('/{chat}/settings', [ChatController::class, 'settings'])->name('chats.settings');
-        Route::get('/{chat}/addUser', [ChatController::class, 'addUser'])->name('chats.addUser');
-        Route::patch('/{chat}/includeUser', [ChatController::class, 'includeUser'])->name('chats.includeUser');
-        Route::delete('/{chat}/destroyUser/{user}', [ChatController::class, 'destroyUser'])->name('chats.destroyUser');
+
+        // Chat User Routes
+        Route::get('/{chat}/users', [ChatUserController::class, 'index'])->name('chat.users.index');
+        Route::get('/{chat}/users/create', [ChatUserController::class, 'create'])->name('chat.users.create');
+        Route::post('/{chat}/users', [ChatUserController::class, 'store'])->name('chat.users.store');
+        Route::delete('/{chat}/users/{user}', [ChatUserController::class, 'destroy'])->name('chat.users.destroy');
 
         // Message Routes
         Route::get('/{chat}/messages', [MessageController::class, 'index'])->name('messages.index');

@@ -6,7 +6,7 @@
                     :href="route('chats.index')"
                     class="font-medium text-sky-500 hover:opacity-50">Back</Link>
                 <Link
-                    :href="route('chats.settings', chat.id)"
+                    :href="route('chat.users.index', chat.id)"
                     class="font-medium text-sky-500 hover:opacity-50">Settings</Link>
             </div>
             <div class="flex flex-col items-center gap-4 w-full mt-5">
@@ -48,7 +48,7 @@ export default {
 
     methods: {
         includeUser() {
-            this.$inertia.patch(`/chats/${this.chat.id}/includeUser`, {
+            this.$inertia.post(`/chats/${this.chat.id}/users`, {
                 user_id: this.choisedUser,
             })
         },
