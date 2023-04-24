@@ -20,7 +20,7 @@ class ChatUserController extends Controller
 
         $users = $chat->users;
 
-        return inertia('Chat/Settings', compact('users', 'chat'));
+        return inertia('ChatUser/Index', compact('users', 'chat'));
     }
 
     public function create(Chat $chat): Response
@@ -31,7 +31,7 @@ class ChatUserController extends Controller
 
         $users = User::whereNotIn('id', $chat->users->pluck('id'))->get();
 
-        return inertia('Chat/AddUser', compact('users', 'chat'));
+        return inertia('ChatUser/Create', compact('users', 'chat'));
     }
 
     public function store(Chat $chat, StoreRequest $request): RedirectResponse
