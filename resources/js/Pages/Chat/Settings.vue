@@ -9,7 +9,7 @@
                     :href="route('chats.index')"
                     class="font-medium text-sky-500 hover:opacity-50">Back</Link>
                 <Link
-                    :href="route('chats.addUser', chat.id)"
+                    :href="route('chat.users.create', chat.id)"
                     class="font-medium text-sky-500 hover:opacity-50">Add user</Link>
             </div>
             <div class="w-full flex flex-col items-center">
@@ -48,7 +48,7 @@ export default {
 
     methods: {
         destroyUser(userId) {
-            this.$inertia.delete(`/chats/${this.chat.id}/destroyUser/${userId}`)
+            this.$inertia.delete(`/chats/${this.chat.id}/users/${userId}`)
         }
     }
 }
