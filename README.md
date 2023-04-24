@@ -13,7 +13,7 @@ Create .env file and run next command:
 
 4) php artisan key:generate
 
-Add mail, websocket and database configuration to .env file and run next command:
+Add mail, websocket and database configuration to .env file and run next commands:
 
 5) php artisan migrate
 
