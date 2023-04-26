@@ -17,6 +17,7 @@
                         margin="16"
                         accept="image/jpeg,image/png"
                         size="10"
+                        radius="50"
                         button-class="btn"
                         :custom-strings="{
                                 upload: '',

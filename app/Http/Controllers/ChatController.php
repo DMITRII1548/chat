@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Image\PutImage;
 use App\Events\MessageSended;
 use App\Http\Requests\Chat\IncludeUserRequest;
 use App\Http\Requests\Chat\StoreRequest;
@@ -9,6 +10,7 @@ use App\Http\Resources\Chat\ChatResource;
 use App\Models\Chat;
 use App\Models\Image;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,15 +34,11 @@ class ChatController extends Controller
         return inertia('Chat/Create');
     }
 
-    public function store(StoreRequest $request): RedirectResponse
+    public function store(StoreRequest $request, PutImage $putImage): RedirectResponse
     {
         $data = $request->validated();
 
-        $path = Storage::disk('public')->put('/images', $data['image']);
-        $image = Image::create([
-            'path' => $path,
-            'url' => url('/storage/' . $path),
-        ]);
+        $image = $putImage->put($data['image']);
 
         $chat = Chat::create([
             'title' => $data['title'],
