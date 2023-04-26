@@ -7,10 +7,12 @@ use App\Http\Requests\Chat\IncludeUserRequest;
 use App\Http\Requests\Chat\StoreRequest;
 use App\Http\Resources\Chat\ChatResource;
 use App\Models\Chat;
+use App\Models\Image;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Response;
 
 class ChatController extends Controller
@@ -34,7 +36,16 @@ class ChatController extends Controller
     {
         $data = $request->validated();
 
-        $chat = Chat::create($data);
+        $path = Storage::disk('public')->put('/images', $data['image']);
+        $image = Image::create([
+            'path' => $path,
+            'url' => url('/storage/' . $path),
+        ]);
+
+        $chat = Chat::create([
+            'title' => $data['title'],
+            'image_id' => $image->id,
+        ]);
         $chat->users()->attach(Auth::user()->id);
 
         return redirect()->route('chats.index');

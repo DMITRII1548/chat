@@ -8,7 +8,7 @@
         <ul v-if="chats">
           <template v-for="chat in chats">
             <li @click.prevent="getMessages(chat)">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
+                <img :src="chat.image_url" alt="">
                 <div>
                 <h2>{{ chat.title }}</h2>
                 <h3>
@@ -24,7 +24,7 @@
         <Link :href="route('chat.users.index', currentChat.id)">
             <header class="hover:bg-gray-300">
                 <template>
-                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
+                    <img :src="currentChat.image_url" alt="">
                     <div>
                         <h2>{{ currentChat.title }}</h2>
                         <h3>already {{ Object.keys(messages).length }} messages</h3>
@@ -127,6 +127,7 @@ export default {
                 .listen('.send.message', (response) => {
                     this.messages.push(response.message)
                 })
+            console.log()
         },
     },
 
