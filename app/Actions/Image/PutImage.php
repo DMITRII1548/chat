@@ -10,7 +10,6 @@ class PutImage
 {
     public function put(UploadedFile $imageFile): Image
     {
-        // Storage::disk('public');
         $imageName = md5($imageFile->getClientOriginalName()) . '.' . $imageFile->getClientOriginalExtension();
         \Intervention\Image\Facades\Image::make($imageFile)->fit(55, 55)
             ->save(storage_path('app\public\images\\' . $imageName));
