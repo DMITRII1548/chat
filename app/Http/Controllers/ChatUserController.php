@@ -50,7 +50,7 @@ class ChatUserController extends Controller
     public function destroy(Chat $chat, User $user): RedirectResponse
     {
         if (!$chat->users()->find(Auth::user()->id)) {
-            abort(419);
+            return redirect()->route('chats.index');
         }
 
         $chat->users()->detach($user->id);

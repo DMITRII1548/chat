@@ -10,11 +10,25 @@
             <div class="flex flex-col items-center mt-8 gap-5">
                 <h2 class="text-xl font-medium">Create chat</h2>
                 <form @submit.prevent="createChat" class="flex flex-col w-1/3 items-center gap-3">
+                    <picture-input
+                        ref="pictureInput"
+                        width="300"
+                        height="300"
+                        margin="16"
+                        accept="image/jpeg,image/png"
+                        size="10"
+                        radius="50"
+                        button-class="btn"
+                        :custom-strings="{
+                                upload: '',
+                                drag: 'Icon for your chat'
+                            }"
+                        @change="onChange"></picture-input>
                     <div>
                         <input v-model="title" type="text" name="title" placeholder="Chat's name" class="border-2 border-black rounded-2xl">
                         <p v-if="errors" class="text-sm text-red-600 pl-1 pt-1">{{ errors.title }}</p>
                     </div>
-                    <button type="submit" class="border-2 border-black px-5 py-2 rounded-3xl bg-blue-500 text-base hover:opacity-70">Create</button>
+                    <button :disabled="!(image && title)" type="submit" class="border-2 border-black px-5 py-2 rounded-3xl bg-blue-500 text-base hover:opacity-70">Create</button>
                 </form>
             </div>
         </main>
@@ -25,6 +39,7 @@
 <script>
 import { Link } from '@inertiajs/vue3'
 import ChatLayout from '@/Layouts/ChatLayout.vue'
+import PictureInput from 'vue-picture-input'
 
 export default {
     name: 'Create',
@@ -38,17 +53,28 @@ export default {
     data() {
         return {
             title: '',
+            image: null,
         }
     },
 
     methods: {
         createChat() {
-            this.$inertia.post('/chats', { title: this.title })
+            this.$inertia.post('/chats', {
+                title: this.title,
+                image: this.image,
+            })
+        },
+
+        onChange(image) {
+            if (image) {
+                this.image = this.$refs.pictureInput.file
+            }
         },
     },
 
     components: {
         Link,
+        'picture-input': PictureInput
     },
 }
 </script>

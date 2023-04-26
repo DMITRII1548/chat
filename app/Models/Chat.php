@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use PhpParser\Node\Expr\FuncCall;
 
 class Chat extends Model
@@ -14,6 +16,7 @@ class Chat extends Model
 
     protected $fillable = [
         'title',
+        'image_id',
     ];
 
     public function users(): BelongsToMany
@@ -24,5 +27,10 @@ class Chat extends Model
     public function messages(): HasMany
     {
         return $this->hasMany(Message::class);
+    }
+
+    public function image(): BelongsTo
+    {
+        return $this->belongsTo(Image::class);
     }
 }

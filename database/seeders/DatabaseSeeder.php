@@ -23,16 +23,16 @@ class DatabaseSeeder extends Seeder
             ]));
         }
 
-        $chats = Chat::factory(3)->create();
+        // $chats = Chat::factory(3)->create();
 
-        $chats[0]->users()->attach($users[0]->id);
-        $chats[0]->users()->attach($users[1]->id);
+        // $chats[0]->users()->attach($users[0]->id);
+        // $chats[0]->users()->attach($users[1]->id);
 
-        $chats[1]->users()->attach($users[1]->id);
-        $chats[1]->users()->attach($users[2]->id);
+        // $chats[1]->users()->attach($users[1]->id);
+        // $chats[1]->users()->attach($users[2]->id);
 
-        $chats[2]->users()->attach($users[0]->id);
-        $chats[2]->users()->attach($users[1]->id);
-        $chats[2]->users()->attach($users[2]->id);
+        // $chats[2]->users()->attach($users[0]->id);
+        // $chats[2]->users()->attach($users[1]->id);
+        // $chats[2]->users()->attach($users[2]->id);
     }
 }
