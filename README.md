@@ -17,4 +17,6 @@ Add mail, websocket and database configuration to .env file and run next command
 
 5) php artisan migrate
 
-6) npm run build
+6) php artisan storage:link
+
+7) npm run build
