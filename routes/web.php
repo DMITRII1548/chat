@@ -34,6 +34,7 @@ Route::middleware('verified')->group(function () {
     Route::prefix('chats')->group(function () {
         Route::get('/create', [ChatController::class, 'create'])->name('chats.create');
         Route::post('/', [ChatController::class, 'store'])->name('chats.store');
+        Route::get('/{chat}/edit', [ChatController::class, 'edit'])->name('chats.edit');
 
         // Chat User Routes
         Route::get('/{chat}/users', [ChatUserController::class, 'index'])->name('chat.users.index');

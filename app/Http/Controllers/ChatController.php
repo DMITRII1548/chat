@@ -48,4 +48,10 @@ class ChatController extends Controller
 
         return redirect()->route('chats.index');
     }
+
+    public function edit(Chat $chat): Response
+    {
+        $chat = ChatResource::make($chat)->resolve();
+        return inertia('Chat/Edit', compact('chat'));
+    }
 }
