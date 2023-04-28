@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Image\PutImage;
+use App\Actions\Image\UpdateImage;
 use App\Events\MessageSended;
 use App\Http\Requests\Chat\IncludeUserRequest;
 use App\Http\Requests\Chat\StoreRequest;
+use App\Http\Requests\Chat\UpdateRequest;
 use App\Http\Resources\Chat\ChatResource;
 use App\Models\Chat;
 use App\Models\Image;
@@ -38,7 +40,7 @@ class ChatController extends Controller
     {
         $data = $request->validated();
 
-        $image = $putImage->put($data['image']);
+        $image = $putImage->handle($data['image']);
 
         $chat = Chat::create([
             'title' => $data['title'],
@@ -53,5 +55,17 @@ class ChatController extends Controller
     {
         $chat = ChatResource::make($chat)->resolve();
         return inertia('Chat/Edit', compact('chat'));
+    }
+
+    public function update(Chat $chat, UpdateRequest $request, UpdateImage $updateImage)
+    {
+        $data = $request->validated();
+
+        $updateImage->handle($chat, $data['image']);
+
+        $chat->title = $data['title'];
+        $chat->save();
+
+        return redirect()->route('chat.users.index', $chat->id);
     }
 }

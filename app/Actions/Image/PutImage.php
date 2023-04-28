@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 class PutImage
 {
-    public function put(UploadedFile $imageFile): Image
+    public function handle(UploadedFile $imageFile): Image
     {
         $imageName = md5($imageFile->getClientOriginalName()) . '.' . $imageFile->getClientOriginalExtension();
         \Intervention\Image\Facades\Image::make($imageFile)->fit(55, 55)

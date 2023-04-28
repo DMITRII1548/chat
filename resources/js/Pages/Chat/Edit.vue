@@ -9,7 +9,7 @@
 
         <div class="flex flex-col items-center mt-8 gap-5">
             <h2 class="text-xl font-medium">Edit chat</h2>
-            <form @submit.prevent="createChat" class="flex flex-col w-1/3 items-center gap-3">
+            <form @submit.prevent="updateChat" class="flex flex-col w-1/3 items-center gap-3">
                 <picture-input
                     ref="pictureInput"
                     width="300"
@@ -19,6 +19,7 @@
                     size="10"
                     radius="50"
                     button-class="btn"
+                    :prefill="chat.image_url"
                     :custom-strings="{
                             upload: '',
                             drag: 'Icon for your chat'
@@ -29,7 +30,7 @@
                     <input v-model="title" type="text" name="title" placeholder="Chat's name" class="border-2 border-black rounded-2xl">
                     <p v-if="errors.title" class="text-sm text-red-600 pl-1 pt-1">{{ errors.title }}</p>
                 </div>
-                <button :disabled="!(image && title)" type="submit" class="border-2 border-black px-5 py-2 rounded-3xl bg-blue-500 text-base hover:opacity-70">Create</button>
+                <button :disabled="false" type="submit" class="border-2 border-black px-5 py-2 rounded-3xl bg-blue-500 text-base hover:opacity-70">Edit</button>
             </form>
         </div>
     </main>
@@ -58,16 +59,12 @@ export default {
         }
     },
 
-    mounted() {
-        console.log(1111)
-        console.log(this.chat)
-    },
-
     methods: {
-        createChat() {
-            this.$inertia.post('/chats', {
+        updateChat() {
+            this.$inertia.post(`/chats/${this.chat.id}`, {
                 title: this.title,
                 image: this.image,
+                _method: 'patch',
             })
         },
 
@@ -75,6 +72,12 @@ export default {
             if (image) {
                 this.image = this.$refs.pictureInput.file
             }
+        },
+    },
+
+    computed: {
+        disabled() {
+            return this.title
         },
     },
 
