@@ -25,8 +25,9 @@
                             }"
                         @change="onChange"></picture-input>
                     <div>
+                    <p v-if="errors.image" class="text-sm text-red-600 pl-1 pt-1">{{ errors.image }}</p>
                         <input v-model="title" type="text" name="title" placeholder="Chat's name" class="border-2 border-black rounded-2xl">
-                        <p v-if="errors" class="text-sm text-red-600 pl-1 pt-1">{{ errors.title }}</p>
+                        <p v-if="errors.title" class="text-sm text-red-600 pl-1 pt-1">{{ errors.title }}</p>
                     </div>
                     <button :disabled="!(image && title)" type="submit" class="border-2 border-black px-5 py-2 rounded-3xl bg-blue-500 text-base hover:opacity-70">Create</button>
                 </form>
@@ -39,7 +40,7 @@
 <script>
 import { Link } from '@inertiajs/vue3'
 import ChatLayout from '@/Layouts/ChatLayout.vue'
-import PictureInput from 'vue-picture-input'
+import PictureInput from '@/Components/PictureInput.vue'
 
 export default {
     name: 'Create',
