@@ -11,6 +11,9 @@
                 <Link
                     :href="route('chat.users.create', chat.id)"
                     class="font-medium text-sky-500 hover:opacity-50">Add user</Link>
+                <Link
+                    :href="route('chats.edit', chat.id)"
+                    class="font-medium text-sky-500 hover:opacity-50">Edit Chat</Link>
             </div>
             <div class="w-full flex flex-col items-center">
                 <h3 class="text-lg font-medium">Users in the chat</h3>
